@@ -1,11 +1,29 @@
 # -*- coding: utf-8 -*-
 # @Author: wengjiacheng
 # @Date:   2018-10-18 16:30:54
-# @Last Modified by:   wengjiacheng
-# @Last Modified time: 2018-10-19 19:05:39
+# @Last Modified by:   JasonWong97
+# @Last Modified time: 2018-10-19 21:22:45
+# encoding=utf-8
 import random
 import numpy as np
 import matplotlib.pyplot as plt
+class BA_network(object):
+	"""docstring for BA_network"""
+	def __init__(self, arg):
+		super(BA_network, self).__init__()
+		self.arg = arg
+		
+def element_sum(y):
+	# 统计数组中所有元素出现的次数 
+	y = np.array(y)
+	key = np.unique(y)
+	result = {}
+	for k in key:
+	    mask = (y == k)
+	    y_new = y[mask]
+	    v = y_new.size
+	    result[k] = v
+	return result
 
 m=3#从已存在的网络中选择 𝑚个节点
 num=10#初始时网络有 num 个节点
@@ -76,10 +94,26 @@ while len(ER_matrix)<N:
 	# 将新的网络赋给ER_matrix，从而进行下一个循环
 	ER_matrix=new_matrix
 
-print(new_matrix)
+print(ER_matrix)
+mat_degree=ER_matrix.sum(axis=1)
+ele_sum=element_sum(mat_degree)
+print(ele_sum)
+mat_degree_percent=[ key for key,value in ele_sum.items() ]
+mat_degree_percent1=[ value for key,value in ele_sum.items() ]
+mat_degree_percent2=np.array(mat_degree_percent1)/sum(mat_degree_percent1)
+print(mat_degree_percent)
+print(mat_degree_percent1)
+print(mat_degree_percent2)
 
-
-
+x = mat_degree_percent
+y = mat_degree_percent2
+ 
+plt.plot(x, y, marker='o', mec='r', mfc='w',label='Degree map')
+plt.legend()
+plt.xlabel("degree") #X轴标签
+plt.ylabel("P(degree)") #Y轴标签
+plt.title("BA network") #标题
+plt.show()
 
 # # 加入一个新节点，即增加一行一列
 # print(len(ER_matrix))
