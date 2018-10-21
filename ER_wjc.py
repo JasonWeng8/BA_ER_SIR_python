@@ -2,7 +2,7 @@
 # @Author: wengjiacheng
 # @Date:   2018-10-18 16:30:54
 # @Last Modified by:   JasonWong97
-# @Last Modified time: 2018-10-19 22:25:05
+# @Last Modified time: 2018-10-21 19:38:01
 import random
 import numpy as np
 import matplotlib.pyplot as plt
@@ -32,7 +32,7 @@ class ER_network:
 
 
 	def element_sum(self,mat):
-	# 统计数组中所有元素出现的次数 
+	# 统计数组中所有元素出现的次数 ,返回字典形式
 		y = mat.sum(axis=1)
 		y = np.array(y)
 		key = np.unique(y)
@@ -47,10 +47,8 @@ class ER_network:
 	def plot_degree_map(self,ele_sum,title):
 		mat_degree_percent=[ key for key,value in ele_sum.items() ]
 		mat_degree_percent1=[ value for key,value in ele_sum.items() ]
-		mat_degree_percent2=np.array(mat_degree_percent1)/sum(mat_degree_percent1)
-		# print(mat_degree_percent)
-		# print(mat_degree_percent1)
-		# print(mat_degree_percent2)
+		mat_degree_percent2=\
+			np.array(mat_degree_percent1)/sum(mat_degree_percent1)
 
 		x = mat_degree_percent
 		y = mat_degree_percent2
@@ -66,12 +64,6 @@ class ER_network:
 		ER_matrix=self.Create_ER_network()
 		ele_sum=self.element_sum(ER_matrix)
 		self.plot_degree_map(ele_sum,self.title)
-
-
-# if __name__ == '__main__':
-# 	main()
-
-
 
 
 

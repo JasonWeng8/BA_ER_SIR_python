@@ -2,19 +2,34 @@
 # @Author: JasonWong97
 # @Date:   2018-10-19 21:37:31
 # @Last Modified by:   JasonWong97
-# @Last Modified time: 2018-10-19 22:27:20
+# @Last Modified time: 2018-10-21 20:45:30
 
 from ER_wjc import ER_network as ER
 from BA_wjc import BA_network as BA
+from SIR_wjc import SIR_model as SIR
 
 er_network=ER(N=1000,p=0.006,title="ER network")
 er_network.main()
-# ER_matrix=er_network.Create_ER_network()
-# ele_sum=er_network.element_sum(ER_matrix)
-# er_network.plot_degree_map(ele_sum,"ER network")
 
 ba_network=BA(N=3,p=0.006,N_end=1000,m0=3,title="BA network")
 ba_network.main()
-# BA_matrix=ba_network.Create_BA_network(ba_network.Create_ER_network())
-# ele_sum=ba_network.element_sum(BA_matrix)
-# ba_network.plot_degree_map(ele_sum,"BA network")
+
+sir_model_er=SIR(beta=0.15,miu=0.1,t=100,
+	network="ER_network",method="max_node")
+sir_model_er.main()
+
+sir_model_ba=SIR(beta=0.15,miu=0.1,t=100,
+	network="BA_network",method="max_node")
+sir_model_ba.main()
+
+sir_model_er=SIR(beta=0.15,miu=0.1,t=100,
+	network="ER_network",method="random_node")
+sir_model_er.main()
+
+sir_model_ba=SIR(beta=0.15,miu=0.1,t=100,
+	network="BA_network",method="random_node")
+sir_model_ba.main()
+
+
+
+
